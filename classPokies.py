@@ -40,13 +40,18 @@ class Hand:
         pass
     def checkFlush(self):
         
-        def findHighCard(inListHand):
+        def findHighCard(inListHand, suitMatch = False):
             pntVal = 0
             high = [0,"2"]
             for cd in inListHand:
                 if checkPointValue(cd[0]) > pntVal:
-                    pntVal = checkPointValue(cd[0])
-                    high = [cd[0],cd[1]]
+                    if not suitMatch:
+                        pntVal = checkPointValue(cd[0])
+                        high = [ cd[0], cd[1] ]
+                    else:
+                        if cd[1] == suitMatch:
+                            pntVal = checkPointValue(cd[0])
+                            high = [ cd[0], cd[1] ]
             return high
         
         dictSuits = {}
@@ -59,18 +64,20 @@ class Hand:
             if c[1] == "p" : dictSuits["p"] = dictSuits["p"] + 1
             if c[1] == "w" : dictSuits["w"] = dictSuits["w"] + 1
             if c[1] == "s" : dictSuits["s"] = dictSuits["s"] + 1
-        if dictSuits["c"] > 3:
-            highCard = findHighCard(self.hand)
+        if dictSuits["c"] > 4:
+            highCard = findHighCard(self.hand, "c")
             self.hazFlush = [True, highCard, "c"]
-        if dictSuits["p"] > 3:
-            highCard = findHighCard(self.hand)
+        if dictSuits["p"] > 4:
+            highCard = findHighCard(self.hand, "p")
             self.hazFlush = [True, highCard, "p"]
-        if dictSuits["w"] > 3: 
+        if dictSuits["w"] > 4: 
             highCard = findHighCard(self.hand)
             self.hazFlush = [True, highCard, "w"]
-        if dictSuits["s"] > 3: 
+        if dictSuits["s"] > 4: 
             highCard = findHighCard(self.hand)
             self.hazFlush = [True, highCard, "s"]
+            
+        return self.hazFlush
 
     def __str__(self):
         self.uSpade = u'\u2660'

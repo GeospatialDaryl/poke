@@ -7,8 +7,6 @@ deck.shuffle()
 print(deck._listDeck)
 #rint(deck)
 
-
-
 listRank = print(listRank[0].split(charTab))
 
 table = Table(deck) 
@@ -33,9 +31,9 @@ print(u'\u2660')
 
 
 for pl in table.listPlayers:
-    print(pl)
+    print( pl, pl.checkFlush() )
     
-#print(table.listPlayers[1])
+print(table.listPlayers[0], table.listPlayers[0].checkFlush())
 
 print("hello")
 #checkPointValue("2")

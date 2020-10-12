@@ -6,6 +6,21 @@ def checkPointValue(inPip):
     else: return(int(inPip))
     
 
+def findHighCard(inListHand, suitMatch = False):
+    pntVal = 0
+    high = [0,"2"]
+    for cd in inListHand:
+        if checkPointValue(cd[0]) > pntVal:
+            if not suitMatch:
+                pntVal = checkPointValue(cd[0])
+                high = [ cd[0], cd[1] ]
+            else:
+                if cd[1] == suitMatch:
+                    pntVal = checkPointValue(cd[0])
+                    high = [ cd[0], cd[1] ]
+    return high
+
+
 def checkCardFromPoint(inPoint):
     if inPoint==14: return("A")
     elif inPip==13: return("K")
@@ -13,6 +28,7 @@ def checkCardFromPoint(inPoint):
     elif inPip==11: return("J")
     else: return(str(inPoints))
     
+
 
 def returnListMax(inCntPip):    
     cntPip = inCntPip 
@@ -34,6 +50,7 @@ def returnListMax(inCntPip):
 
 
 # Returns the score for the list of multiples
+
 def scoreFromListMax(inListMax):
     '''
     Returns the score for the list of multiples
@@ -49,6 +66,7 @@ def scoreFromListMax(inListMax):
 
 
 #  in a list of listCards, out dictCoutPip
+
 def checkHandPairs(inListCards):
     pair = ""
     listPip = []
